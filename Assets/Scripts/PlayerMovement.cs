@@ -4,14 +4,18 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public CharacterController2D controller;
-    public Animator animator;
+    [SerializeField] CharacterController2D controller;
+    [SerializeField] Animator animator;
 
-    public float runSpeed = 40f;
+    [SerializeField] Rigidbody2D RB;
+
+    [SerializeField] float runSpeed = 40f;
 
     float HorizontalMove = 0f;
     bool jumpTrigger = false;
     bool crouchTrigger = false;
+    bool isGoingUp = false;
+    bool IsGrounded = true;
 
     InputAction moveAction;
     InputAction jumpAction;
@@ -33,9 +37,17 @@ public class PlayerMovement : MonoBehaviour
         crouchTrigger = crouchAction.IsPressed();
 
         animator.SetFloat("Speed", Math.Abs(HorizontalMove));
+        animator.SetBool("IsJumping", false);
+
+        if (isGoingUp)
+        {
+            JumpToFall();
+        }
+
         if (jumpTrigger)
         {
             animator.SetBool("IsJumping", true);
+            isGoingUp = true;
         }
     }
 
@@ -44,13 +56,27 @@ public class PlayerMovement : MonoBehaviour
         controller.Move(HorizontalMove * Time.fixedDeltaTime * runSpeed, crouchTrigger, jumpTrigger);
     }
 
+    void JumpToFall()
+    {
+        if (RB.linearVelocity.y < 0.1f)
+        {
+            animator.SetBool("IsFalling", true);
+            IsGrounded = false;
+            isGoingUp = false;
+        }
+    }
+
     public void OnLanding()
     {
-        animator.SetBool("IsJumping", false);
+        animator.SetBool("IsFalling", false);
+        IsGrounded = true;
     }
-    
+
     public void OnCrouching(bool isCrouching)
     {
-        animator.SetBool("IsCrouching", isCrouching);
+        if (IsGrounded)
+        {
+            animator.SetBool("IsCrouching", isCrouching);
+        }
     }
 }

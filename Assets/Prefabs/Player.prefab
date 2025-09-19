@@ -137,7 +137,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a85358e35ee42c147b4360da63bf9bd9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CharacterController2D
-  m_JumpForce: 350
+  m_JumpForce: 700
   m_CrouchSpeed: 0.36
   m_MovementSmoothing: 0.05
   m_AirControl: 1
@@ -164,7 +164,19 @@ MonoBehaviour:
         m_CallState: 2
   OnCrouchEvent:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: -8645015365921977062}
+        m_TargetAssemblyTypeName: PlayerMovement, Assembly-CSharp
+        m_MethodName: OnCrouching
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &-8645015365921977062
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -179,6 +191,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
   controller: {fileID: 2517299753476658835}
   animator: {fileID: 2867495823037301230}
+  RB: {fileID: 6224912354805034351}
   runSpeed: 40
 --- !u!61 &-554485823536995272
 BoxCollider2D:
@@ -214,17 +227,17 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.44402003, y: 0.0055558085}
+  m_Offset: {x: -0.058890104, y: -0.028402388}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 4.0588236, y: 2.5882354}
+    oldSize: {x: 3.2941177, y: 2.5882354}
     newSize: {x: 4.0588236, y: 2.5882354}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1.0847697, y: 1.4272255}
+  m_Size: {x: 1.0666666, y: 1.3593091}
   m_EdgeRadius: 0
 --- !u!58 &7186278742135630038
 CircleCollider2D:
@@ -260,7 +273,7 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.44065988, y: -0.805303}
+  m_Offset: {x: -0.12, y: -0.805303}
   m_Radius: 0.43130958
 --- !u!95 &2867495823037301230
 Animator:
