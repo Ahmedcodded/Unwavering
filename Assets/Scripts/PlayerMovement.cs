@@ -1,4 +1,5 @@
 using System;
+using NUnit.Framework.Internal;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -47,8 +48,12 @@ public class PlayerMovement : MonoBehaviour
         if (jumpTrigger)
         {
             animator.SetBool("IsJumping", true);
-            IsGrounded = false;
-            isGoingUp = true;
+
+            if (IsGrounded)
+            {
+                IsGrounded = false;
+                isGoingUp = true;
+            }
         }
 
         animator.SetBool("IsCrouchBuffering", crouchTrigger);
@@ -66,7 +71,7 @@ public class PlayerMovement : MonoBehaviour
 
     void JumpToFall()
     {
-        if (RB.linearVelocity.y < 0.1f)
+        if (RB.linearVelocity.y < 0f)
         {
             animator.SetBool("IsFalling", true);
             isGoingUp = false;
