@@ -47,8 +47,16 @@ public class PlayerMovement : MonoBehaviour
         if (jumpTrigger)
         {
             animator.SetBool("IsJumping", true);
+            IsGrounded = false;
             isGoingUp = true;
         }
+
+        animator.SetBool("IsCrouchBuffering", crouchTrigger);
+
+        if (!IsGrounded)
+            {
+                crouchTrigger = false;
+            }
     }
 
     void FixedUpdate()
@@ -61,7 +69,6 @@ public class PlayerMovement : MonoBehaviour
         if (RB.linearVelocity.y < 0.1f)
         {
             animator.SetBool("IsFalling", true);
-            IsGrounded = false;
             isGoingUp = false;
         }
     }
@@ -74,9 +81,6 @@ public class PlayerMovement : MonoBehaviour
 
     public void OnCrouching(bool isCrouching)
     {
-        if (IsGrounded)
-        {
-            animator.SetBool("IsCrouching", isCrouching);
-        }
+        animator.SetBool("IsCrouching", isCrouching);
     }
 }
